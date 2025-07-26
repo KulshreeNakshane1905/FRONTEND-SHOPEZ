@@ -53,10 +53,10 @@ const ProductCard = ({
       {/* Favorite Heart Icon */}
       <button
         onClick={handleFavorite}
-        className="absolute top-2 right-2 z-10 p-1 rounded-full bg-white/80 hover:bg-white shadow"
+        className="absolute top-2 right-2 z-10 p-2 rounded-full bg-white/80 hover:bg-white shadow-md transition-colors"
         aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
       >
-        <Heart className={isFavorite ? "text-red-500 fill-red-500" : "text-gray-400"} />
+        <Heart className={`h-4 w-4 ${isFavorite ? "text-red-500 fill-red-500" : "text-gray-400"}`} />
       </button>
       <CardContent className="p-0">
         {/* Image Container */}
@@ -83,7 +83,7 @@ const ProductCard = ({
 
           {/* Quick Action Overlay */}
           <div className="absolute inset-x-3 bottom-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <Button variant="shop" className="w-full" onClick={handleAddToCart}>
+            <Button variant="shop" className="w-full h-12 text-sm" onClick={handleAddToCart}>
               <ShoppingCart className="h-4 w-4 mr-2" />
               Add to Cart
             </Button>
@@ -91,8 +91,8 @@ const ProductCard = ({
         </div>
 
         {/* Product Info */}
-        <div className="p-4">
-          <h3 className="font-semibold text-lg mb-2 line-clamp-2 text-foreground">
+        <div className="p-3 md:p-4">
+          <h3 className="font-semibold text-base md:text-lg mb-2 line-clamp-2 text-foreground">
             {name}
           </h3>
           
@@ -102,7 +102,7 @@ const ProductCard = ({
               {[...Array(5)].map((_, i) => (
                 <Star
                   key={i}
-                  className={`h-4 w-4 ${
+                  className={`h-3 w-3 md:h-4 md:w-4 ${
                     i < Math.floor(rating)
                       ? "fill-yellow-400 text-yellow-400"
                       : "text-gray-300"
@@ -110,25 +110,25 @@ const ProductCard = ({
                 />
               ))}
             </div>
-            <span className="text-sm text-muted-foreground ml-1">
+            <span className="text-xs md:text-sm text-muted-foreground ml-1">
               ({reviews})
             </span>
           </div>
 
-          {/* Price */}
-          <div className="flex items-center justify-between">
+          {/* Price and Action */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <div className="flex items-center gap-2">
-              <span className="text-2xl font-bold text-primary">
+              <span className="text-xl md:text-2xl font-bold text-primary">
                 ${price}
               </span>
               {originalPrice && (
-                <span className="text-lg text-muted-foreground line-through">
+                <span className="text-base md:text-lg text-muted-foreground line-through">
                   ${originalPrice}
                 </span>
               )}
             </div>
-            <Link to={`/products/${id}`}>
-              <Button variant="outline" size="sm">
+            <Link to={`/products/${id}`} className="w-full sm:w-auto">
+              <Button variant="outline" size="sm" className="w-full sm:w-auto h-10">
                 Shop Now
               </Button>
             </Link>

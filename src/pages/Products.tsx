@@ -47,45 +47,48 @@ const Products = () => {
       <Header />
       
       {/* Page Header */}
-      <section className="bg-gradient-hero text-white py-12">
+      <section className="bg-gradient-hero text-white py-8 md:py-12">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold mb-4">All Products</h1>
-          <p className="text-xl text-blue-100">
+          <h1 className="text-3xl md:text-4xl font-bold mb-4">All Products</h1>
+          <p className="text-lg md:text-xl text-blue-100">
             Discover our complete collection of amazing products
           </p>
         </div>
       </section>
 
       {/* Filters & Content */}
-      <section className="py-8">
+      <section className="py-6 md:py-8">
         <div className="container mx-auto px-4">
           {/* Filter Bar */}
-          <Card className="mb-8">
-            <CardContent className="p-6">
-              <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-                <div className="flex items-center gap-4">
+          <Card className="mb-6 md:mb-8">
+            <CardContent className="p-4 md:p-6">
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center gap-2">
                   <Filter className="h-5 w-5 text-muted-foreground" />
                   <span className="font-medium">Filter by category:</span>
-                  <div className="flex gap-2 flex-wrap">
+                </div>
+                
+                {/* Scrollable Filter Buttons */}
+                <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                  <Button
+                    variant={selectedCategory === 'all' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setSelectedCategory('all')}
+                    className="whitespace-nowrap flex-shrink-0"
+                  >
+                    All Products
+                  </Button>
+                  {categories.map((category) => (
                     <Button
-                      variant={selectedCategory === 'all' ? 'default' : 'outline'}
+                      key={category}
+                      variant={selectedCategory === category ? 'default' : 'outline'}
                       size="sm"
-                      onClick={() => setSelectedCategory('all')}
+                      onClick={() => setSelectedCategory(category)}
+                      className="capitalize whitespace-nowrap flex-shrink-0"
                     >
-                      All Products
+                      {category}
                     </Button>
-                    {categories.map((category) => (
-                      <Button
-                        key={category}
-                        variant={selectedCategory === category ? 'default' : 'outline'}
-                        size="sm"
-                        onClick={() => setSelectedCategory(category)}
-                        className="capitalize"
-                      >
-                        {category}
-                      </Button>
-                    ))}
-                  </div>
+                  ))}
                 </div>
                 
                 <div className="flex items-center gap-2">
@@ -105,7 +108,7 @@ const Products = () => {
 
           {/* Products Grid */}
           {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
               {[...Array(8)].map((_, i) => (
                 <Card key={i} className="animate-pulse">
                   <CardContent className="p-0">
@@ -120,7 +123,7 @@ const Products = () => {
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
               {filteredProducts.map((product) => (
                 <ProductCard
                   key={product._id}
